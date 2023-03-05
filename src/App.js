@@ -8,7 +8,6 @@ import { Box } from "@mui/system";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 // import Button from "@mui/material/Button";
 import * as React from "react";
-import { useEffect } from "react";
 
 const theme = createTheme({
   status: {
