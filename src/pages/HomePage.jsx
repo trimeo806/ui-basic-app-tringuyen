@@ -1,6 +1,6 @@
 import React from "react";
 import JobCard from "../component/JobCard";
-import { Box } from "@mui/system";
+import Grid from "@mui/material/Grid";
 import { jobs } from "../data";
 
 function HomePage({ number }) {
@@ -25,19 +25,17 @@ function HomePage({ number }) {
   }
 
   return (
-    <Box
-      sx={{
-        width: { xs: "100vw", lg: "100vw", xl: "69vw" },
-        margin: "auto",
-        display: "flex",
-        flexWrap: "wrap",
-        justifyContent: { xs: "center", lg: "center", xl: "flex-start" },
-      }}
+    <Grid
+      container
+      spacing={0}
+      maxWidth={1200}
+      direction={{ xs: "column", lg: "row" }}
+      justifyContent={{ xs: "center", lg: "flex-start" }}
     >
       {jobs.slice(item1, item2).map((job) => (
         <JobCard key={job.id} job={job}></JobCard>
       ))}
-    </Box>
+    </Grid>
   );
 }
 

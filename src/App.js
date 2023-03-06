@@ -6,8 +6,10 @@ import DetailPage from "./pages/DetailPage";
 import { Pagination } from "@mui/material";
 import { Box } from "@mui/system";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-// import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
 import * as React from "react";
+//Trong bai nay con CSS baseline chua tim hieu
+//Can tim hieu them: Chip, Divider, CSS baseline, modify them (moi lam duoc co 1 cai)
 
 const theme = createTheme({
   status: {
@@ -59,22 +61,34 @@ function App() {
           sx={{
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
           }}
         >
-          <Routes>
-            <Route path="/" element={<HomePage number={page} />}>
-              <Route path=":jobId" element={<DetailPage />} />
-            </Route>
-          </Routes>
-          <Pagination
-            count={3}
-            page={page}
-            onChange={handleChange}
-            variant="text"
-            color="primary"
-            sx={{ "Button.MuiPaginationItem-root": { color: "#fff" } }}
-          />
+          <Grid
+            container
+            spacing={2}
+            direction="column"
+            alignItems="center"
+            justifyContent="flex-end"
+          >
+            <Grid item lg={12}>
+              <Routes>
+                <Route path="/" element={<HomePage number={page} />}>
+                  <Route path=":jobId" element={<DetailPage />} />
+                </Route>
+              </Routes>
+            </Grid>
+            <Grid item xs={12}>
+              <Pagination
+                count={3}
+                page={page}
+                onChange={handleChange}
+                variant="text"
+                color="primary"
+                sx={{ "Button.MuiPaginationItem-root": { color: "#fff" } }}
+              />
+            </Grid>
+          </Grid>
+
           {/* Cach chinh mau cua pagination? syntax "tenElement.tenClass":{`CSS change`} */}
         </Box>
       </ThemeProvider>

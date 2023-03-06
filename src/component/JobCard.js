@@ -11,73 +11,64 @@ export default function JobCard({ job }) {
   return (
     <Box
       sx={{
-        width: "100%",
+        width: "355",
         maxWidth: 355,
-        bgcolor: "#1A2027",
+        bgcolor: "#FFFFFF14",
         m: "12px",
-        flex: "1 1 auto",
         position: "relative",
+        display: "flex",
+        flexDirection: "column",
+        alignContent: "space-between",
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
       <Box
         sx={{
-          my: 3,
+          my: 1,
           mx: 2,
-          width: "auto",
+          maxWidth: "300px",
+          height: "16rem",
           color: "white",
+          display: "flex",
+          flexDirection: "column",
         }}
       >
-        <Grid container alignItems="center">
-          <Grid item xs>
-            <Typography
-              gutterBottom
-              variant="h4"
-              component="div"
-              sx={{ textAlign: "center", m: "0" }}
-            >
-              {job.title}
-            </Typography>
-          </Grid>
-        </Grid>
+        <Typography gutterBottom variant="h6" component="div">
+          {job.title}
+        </Typography>
         <Divider variant="middle" />
-        <Box sx={{ p: "auto", m: "10px", color: "white" }}>
-          <Stack
-            direction="row"
-            spacing={1}
-            sx={{
-              display: "flex",
-              flexWrap: "wrap",
-              alignItems: "center",
-            }}
-          >
-            {job.skills.slice(0, 4).map((skill) => (
-              <Chip
-                key={skill}
-                sx={{ color: "white", bgcolor: "red", m: "5px" }}
-                label={skill}
-              />
-            ))}
-          </Stack>
-        </Box>
-        <Box sx={{ mb: "100px" }}>
-          <Typography color="white" variant="body3">
-            {job.description}
-          </Typography>
-        </Box>
+        <Stack
+          direction="row"
+          spacing={0}
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+          }}
+        >
+          {job.skills.slice(0, 4).map((skill) => (
+            <Chip
+              key={skill}
+              sx={{
+                color: "white",
+                bgcolor: "red",
+                m: "5px",
+                fontSize: "0.2rem",
+              }}
+              label={skill}
+            />
+          ))}
+        </Stack>{" "}
+        <Typography color="white" variant="body3">
+          {job.description}
+        </Typography>
       </Box>
-      <Box
-        sx={{
-          mt: 2,
-          mb: 1,
-          position: "absolute",
-          bottom: "1px",
-          left: "35%",
-        }}
-      >
+      <Box>
         <Button
           sx={{
             color: "white",
             bgcolor: "#FF8C00",
+            mb: "0.75rem",
           }}
         >
           Learn More
