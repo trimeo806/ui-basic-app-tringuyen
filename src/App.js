@@ -8,6 +8,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import * as React from "react";
 import LoginFormModal from "./component/LoginFormModal";
+import { createContext, useState } from "react";
 //Trong bai nay con CSS baseline chua tim hieu
 //Can tim hieu them: Chip, Divider, CSS baseline, modify them (moi lam duoc co 1 cai)
 
@@ -23,6 +24,10 @@ const theme = createTheme({
     neutral: {
       main: "#64748B",
       contrastText: "#fff",
+    },
+    formTextField: {
+      main: "#fff",
+      contrastText: "#053e85",
     },
   },
   components: {
@@ -41,8 +46,12 @@ const theme = createTheme({
   },
 });
 
+export const StatesContext = createContext();
+
 function App() {
-  const [page, setPage] = React.useState(1);
+  const [page, setPage] = useState(1);
+  const [isLogin, setIsLogin] = useState(false);
+
   const handleChange = (event, value) => {
     setPage(value);
   };
@@ -52,42 +61,45 @@ function App() {
 
   return (
     <div className="App">
-      <ThemeProvider theme={theme}>
-        <SearchAppBar></SearchAppBar>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <Grid
-            container
-            spacing={2}
-            direction="column"
-            alignItems="center"
-            justifyContent="flex-end"
+      <StatesContext.Provider value={[isLogin, setIsLogin]}>
+        {" "}
+        <ThemeProvider theme={theme}>
+          <SearchAppBar></SearchAppBar>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+            }}
           >
-            <Grid item lg={12}>
-              <Routes>
-                <Route path="/" element={<HomePage number={page} />}>
-                  <Route path="login" element={<LoginFormModal/>}></Route>
-                </Route>
-              </Routes>
+            <Grid
+              container
+              spacing={2}
+              direction="column"
+              alignItems="center"
+              justifyContent="flex-end"
+            >
+              <Grid item lg={12}>
+                <Routes>
+                  <Route path="/" element={<HomePage number={page} />}>
+                    <Route path="login" element={<LoginFormModal />}></Route>
+                  </Route>
+                </Routes>
+              </Grid>
+              <Grid item xs={12}>
+                <Pagination
+                  count={3}
+                  page={page}
+                  onChange={handleChange}
+                  variant="text"
+                  color="primary"
+                  sx={{ "Button.MuiPaginationItem-root": { color: "#fff" } }}
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <Pagination
-                count={3}
-                page={page}
-                onChange={handleChange}
-                variant="text"
-                color="primary"
-                sx={{ "Button.MuiPaginationItem-root": { color: "#fff" } }}
-              />
-            </Grid>
-          </Grid>
-          {/* Cach chinh mau cua pagination? syntax "tenElement.tenClass":{`CSS change`} */}
-        </Box>
-      </ThemeProvider>
+            {/* Cach chinh mau cua pagination? syntax "tenElement.tenClass":{`CSS change`} */}
+          </Box>
+        </ThemeProvider>
+      </StatesContext.Provider>
     </div>
   );
 }

@@ -11,9 +11,10 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import LoginIcon from "@mui/icons-material/Login";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { Button } from "@mui/material";
 import SignIn from "./SignIn";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { StatesContext } from "../App";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -58,6 +59,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchAppBar() {
+  const [isLogin, setIsLogin] = useContext(StatesContext);
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -113,29 +115,45 @@ export default function SearchAppBar() {
               flexDirection: "row",
             }}
           >
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              sx={{ mr: 0, display: { xs: "none", lg: "flex" } }}
-            >
-              <LoginIcon />
-            </IconButton>
-            <IconButton
-              sx={{
-                color: "#fff",
-                display: { xs: "none", lg: "flex" },
-              }}
-              onClick={() => {
-                navigate("/login");
-              }}
-            >
-              Sign in
-            </IconButton>
+            {isLogin ? (
+              <IconButton
+                sx={{
+                  color: "#fff",
+                  display: { xs: "none", lg: "flex" },
+                }}
+                onClick={() => {
+                  navigate("/login");
+                }}
+              >
+                Sign out
+              </IconButton>
+            ) : (
+              <>
+                <IconButton
+                  size="large"
+                  edge="start"
+                  color="inherit"
+                  aria-label="open drawer"
+                  sx={{ mr: 0, display: { xs: "none", lg: "flex" } }}
+                >
+                  <LoginIcon />
+                </IconButton>
+                <IconButton
+                  sx={{
+                    color: "#fff",
+                    display: { xs: "none", lg: "flex" },
+                  }}
+                  onClick={() => {
+                    navigate("/login");
+                  }}
+                >
+                  Sign in
+                </IconButton>
+              </>
+            )}
           </Box>
 
-          <Button
+          <Box
             id="basic-button"
             aria-controls={open ? "basic-menu" : undefined}
             aria-haspopup="true"
@@ -146,20 +164,15 @@ export default function SearchAppBar() {
             }}
           >
             <IconButton
-              // id="basic-button"
-              // aria-controls={open ? "basic-menu" : undefined}
-              // aria-haspopup="true"
-              // aria-expanded={open ? "true" : undefined}
               size="large"
               edge="start"
               color="inherit"
               aria-label="open drawer"
               sx={{ ml: 0, display: { xs: "flex", lg: "none" } }}
-              // onClick={handleOpen}
             >
               <MoreVertIcon />
             </IconButton>
-          </Button>
+          </Box>
           <Menu
             id="basic-menu"
             anchorEl={anchorEl}
