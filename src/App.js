@@ -2,12 +2,12 @@ import SearchAppBar from "./component/SearchAppBar";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import HomePage from "./pages/HomePage";
-import DetailPage from "./pages/DetailPage";
 import { Pagination } from "@mui/material";
 import { Box } from "@mui/system";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import * as React from "react";
+import LoginFormModal from "./component/LoginFormModal";
 //Trong bai nay con CSS baseline chua tim hieu
 //Can tim hieu them: Chip, Divider, CSS baseline, modify them (moi lam duoc co 1 cai)
 
@@ -53,9 +53,6 @@ function App() {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        {/* <Button color="neutral" variant="contained">
-          neutral
-        </Button> */}
         <SearchAppBar></SearchAppBar>
         <Box
           sx={{
@@ -73,7 +70,7 @@ function App() {
             <Grid item lg={12}>
               <Routes>
                 <Route path="/" element={<HomePage number={page} />}>
-                  <Route path=":jobId" element={<DetailPage />} />
+                  <Route path="login" element={<LoginFormModal/>}></Route>
                 </Route>
               </Routes>
             </Grid>
@@ -88,7 +85,6 @@ function App() {
               />
             </Grid>
           </Grid>
-
           {/* Cach chinh mau cua pagination? syntax "tenElement.tenClass":{`CSS change`} */}
         </Box>
       </ThemeProvider>

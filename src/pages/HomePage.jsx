@@ -2,6 +2,7 @@ import React from "react";
 import JobCard from "../component/JobCard";
 import Grid from "@mui/material/Grid";
 import { jobs } from "../data";
+import { Outlet } from "react-router-dom";
 
 function HomePage({ number }) {
   let item1 = 0;
@@ -25,17 +26,21 @@ function HomePage({ number }) {
   }
 
   return (
-    <Grid
-      container
-      spacing={0}
-      maxWidth={1200}
-      direction={{ xs: "column", lg: "row" }}
-      justifyContent={{ xs: "center", lg: "flex-start" }}
-    >
-      {jobs.slice(item1, item2).map((job) => (
-        <JobCard key={job.id} job={job}></JobCard>
-      ))}
-    </Grid>
+    <>
+          <Outlet></Outlet>
+
+      <Grid
+        container
+        spacing={0}
+        maxWidth={1200}
+        direction={{ xs: "column", lg: "row" }}
+        justifyContent={{ xs: "center", lg: "flex-start" }}
+      >
+        {jobs.slice(item1, item2).map((job) => (
+          <JobCard key={job.id} job={job}></JobCard>
+        ))}
+      </Grid>
+    </>
   );
 }
 

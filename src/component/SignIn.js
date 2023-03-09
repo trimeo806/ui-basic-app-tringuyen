@@ -1,8 +1,10 @@
 import { Box, IconButton } from "@mui/material";
 import React from "react";
 import LoginIcon from "@mui/icons-material/Login";
+import { useNavigate } from "react-router-dom";
 
 function SignIn() {
+  const navigate = useNavigate();
   return (
     <Box
       sx={{
@@ -24,6 +26,7 @@ function SignIn() {
         sx={{
           display: { xs: "flex", lg: "flex" },
         }}
+        onClick={()=>{navigate("/login")}}
       >
         Sign in
       </IconButton>

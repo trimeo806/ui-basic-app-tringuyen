@@ -52,7 +52,7 @@ export default function JobCard({ job }) {
                 color: "white",
                 bgcolor: "red",
                 m: "5px",
-                fontSize: "0.2rem",
+                fontSize: "0.7rem",
               }}
               label={skill}
             />

@@ -13,6 +13,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { Button } from "@mui/material";
 import SignIn from "./SignIn";
+import { useNavigate } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -57,6 +58,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchAppBar() {
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -124,6 +126,9 @@ export default function SearchAppBar() {
               sx={{
                 color: "#fff",
                 display: { xs: "none", lg: "flex" },
+              }}
+              onClick={() => {
+                navigate("/login");
               }}
             >
               Sign in
