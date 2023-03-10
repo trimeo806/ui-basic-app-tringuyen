@@ -15,6 +15,7 @@ import SignIn from "./SignIn";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { StatesContext } from "../App";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -45,7 +46,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
@@ -59,7 +59,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchAppBar() {
-  const [isLogin, setIsLogin] = useContext(StatesContext);
+  const setHaveJobId = useContext(StatesContext)[8][1];
+  const [isLogin, setIsLogin] = useContext(StatesContext)[1];
+  const user = useContext(StatesContext)[7].email;
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -116,17 +118,39 @@ export default function SearchAppBar() {
             }}
           >
             {isLogin ? (
-              <IconButton
-                sx={{
-                  color: "#fff",
-                  display: { xs: "none", lg: "flex" },
-                }}
-                onClick={() => {
-                  navigate("/login");
-                }}
-              >
-                Sign out
-              </IconButton>
+              <>
+                <IconButton
+                  sx={{
+                    display: { xs: "none", lg: "flex" },
+                    alignSelf: "center",
+                  }}
+                >
+                  <AccountCircleIcon />
+                </IconButton>
+                <Typography
+                  sx={{
+                    display: { xs: "none", lg: "flex" },
+                    alignSelf: "center",
+                  }}
+                >
+                  {user}
+                </Typography>
+
+                <IconButton
+                  sx={{
+                    color: "#fff",
+                    display: { xs: "none", lg: "flex" },
+                    fontSize: "1em",
+                  }}
+                  onClick={() => {
+                    navigate("/");
+                    setIsLogin(false);
+                    setHaveJobId(null);
+                  }}
+                >
+                  Sign out
+                </IconButton>
+              </>
             ) : (
               <>
                 <IconButton
@@ -135,6 +159,9 @@ export default function SearchAppBar() {
                   color="inherit"
                   aria-label="open drawer"
                   sx={{ mr: 0, display: { xs: "none", lg: "flex" } }}
+                  onClick={() => {
+                    navigate("/login");
+                  }}
                 >
                   <LoginIcon />
                 </IconButton>
@@ -142,6 +169,7 @@ export default function SearchAppBar() {
                   sx={{
                     color: "#fff",
                     display: { xs: "none", lg: "flex" },
+                    fontSize: "1em",
                   }}
                   onClick={() => {
                     navigate("/login");

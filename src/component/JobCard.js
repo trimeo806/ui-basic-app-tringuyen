@@ -5,8 +5,27 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
+import { useContext, useEffect } from "react";
+import { StatesContext } from "../App";
+import { useNavigate } from "react-router-dom";
 
 export default function JobCard({ job }) {
+  const [isLogin] = useContext(StatesContext)[1];
+  const navigate = useNavigate();
+  const [haveJobId, setHaveJobId] = useContext(StatesContext)[8];
+  const handleClick = (jobId) => {
+    setHaveJobId(jobId);
+    if (!isLogin) {
+      navigate("/login");
+    } else {
+      navigate(`/${jobId}`);
+    }
+  };
+
+  useEffect(() => {
+    console.log(haveJobId);
+  }, [haveJobId]);
+
   return (
     <Box
       sx={{
@@ -69,6 +88,7 @@ export default function JobCard({ job }) {
             bgcolor: "#FF8C00",
             mb: "0.75rem",
           }}
+          onClick={() => handleClick(job.id)}
         >
           Learn More
         </Button>

@@ -27,8 +27,7 @@ function HomePage({ number }) {
 
   return (
     <>
-          <Outlet></Outlet>
-
+      <Outlet></Outlet>
       <Grid
         container
         spacing={0}
